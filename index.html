@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador Daily Million</title>
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --background-color: #f4f4f4;
+      --text-color: #333;
+      --card-bg: #fff;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom-left-radius: var(--border-radius);
+      border-bottom-right-radius: var(--border-radius);
+    }
+
+    main {
+      margin-top: 30px;
+      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      text-align: center;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .sequencia {
+      margin-top: 25px;
+      font-size: 18px;
+      color: var(--text-color);
+    }
+
+    .sequencia p {
+      background-color: #e8f5e9;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+  </style>
+</head>
+<body>
+  <header>Gerador de Sequências Daily Million com Bônus</header>
+  <main>
+    <div class="card">
+      <button onclick="gerarSequencias()">GERAR SEQUÊNCIA</button>
+      <div id="resultado" class="sequencia"></div>
+    </div>
+  </main>
+
+  <script>
+    const numerosFrequentes = [17, 30, 34, 37, 23, 12, 5, 19, 28, 41, 6, 9];
+    const numerosBonus = [7, 15, 22, 26, 33, 39];
+
+    function gerarSequencias() {
+      const sequencias = [];
+      for (let i = 0; i < 3; i++) {
+        const sequencia = [];
+        while (sequencia.length < 6) {
+          const numero = numerosFrequentes[Math.floor(Math.random() * numerosFrequentes.length)];
+          if (!sequencia.includes(numero)) {
+            sequencia.push(numero);
+          }
+        }
+        sequencia.sort((a, b) => a - b);
+        const bonus = numerosBonus[Math.floor(Math.random() * numerosBonus.length)];
+        sequencias.push({ numeros: sequencia, bonus });
+      }
+      document.getElementById('resultado').innerHTML = sequencias.map((seq, idx) =>
+        `<p>Sequência ${idx + 1}: <strong>${seq.numeros.join(', ')}</strong> | Bônus: <strong>${seq.bonus}</strong></p>`
+      ).join('');
+    }
+  </script>
+</body>
+</html>
