@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador EuroDreams</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    .sequencia { margin-top: 15px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h2>Gerador de Sequências EuroDreams</h2>
+  <button onclick="gerarSequencias()">GERAR SEQUÊNCIA</button>
+  <div id="resultado" class="sequencia"></div>
+
+  <script>
+    const numerosMaisFrequentes = [36, 18, 30, 34, 38, 40, 4, 9, 11, 16, 20, 22, 23, 24, 28, 29, 32, 33];
+    const numerosDreamFrequentes = [2, 3, 4, 5, 1];
+
+    function gerarSequencia() {
+      const numeros = [];
+      const numerosDisponiveis = [...numerosMaisFrequentes];
+      while (numeros.length < 6 && numerosDisponiveis.length > 0) {
+        const index = Math.floor(Math.random() * numerosDisponiveis.length);
+        numeros.push(numerosDisponiveis.splice(index, 1)[0]);
+      }
+      numeros.sort((a, b) => a - b);
+      const dream = numerosDreamFrequentes[Math.floor(Math.random() * numerosDreamFrequentes.length)];
+      return { numeros, dream };
+    }
+
+    function gerarSequencias() {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        const seq = gerarSequencia();
+        const p = document.createElement('p');
+        p.textContent = `Sequência ${i + 1}: ${seq.numeros.join(', ')} | Dream: ${seq.dream}`;
+        resultadoDiv.appendChild(p);
+      }
+    }
+  </script>
+</body>
+</html>
